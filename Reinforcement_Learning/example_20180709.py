@@ -112,6 +112,7 @@ if __name__ == "__main__":
     print(q_table)
     plt.figure(1)
     plt.plot(episode_log, step_log,'b-*')
+    plt.xlim(1, max_episode)
     plt.title('Reinforcement Learning Results')
     plt.xlabel('Episode')
     plt.ylabel('Total_Step')
