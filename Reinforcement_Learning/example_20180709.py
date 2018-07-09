@@ -9,13 +9,13 @@ import time
 import matplotlib.pyplot as plt
 
 # Set the Initial Values
-N_states = 20    # the width of the one dimensional word
+N_states = 50    # the width of the one dimensional word
 Actions = ['left','right']  # the available actions
 epsilon = 0.8   # the greedy number
 alpha = 0.1 # learning rate
 gamma = 0.9 # decay of the rewards
-max_episode = 30
-fresh_time = 0.01
+max_episode = 50
+fresh_time = 0.001
 
 # Build the Q-Table
 def build_q_table(n_states, actions):
@@ -70,8 +70,8 @@ def update_env(S, episode, step_counter):
     if S == 'terminal':
         interaction = 'Episode %s: total_steps = %s' %(episode+1, step_counter)
         print('\r{}'.format(interaction), end='')
-        time.sleep(2)
-        print('\r                      ', end='')
+        time.sleep(1)
+        print('\r                                                              ', end='')
     else:
         env_list[S] = 'o'
         interaction = ''.join(env_list)
