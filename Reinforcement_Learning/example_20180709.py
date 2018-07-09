@@ -1,22 +1,23 @@
-#!usr/bin/python
+# _*_ coding: utf-8 _*_
+#! usr/bin/python
 
-
-# Initial Settings
+# Import the Modules
 from __future__ import print_function
 import numpy as np
 import pandas as pd
 import time
 import matplotlib.pyplot as plt
 
+# Set the Initial Values
 N_states = 20    # the width of the one dimensional word
 Actions = ['left','right']  # the available actions
 epsilon = 0.8   # the greedy number
 alpha = 0.1 # learning rate
 gamma = 0.9 # decay of the rewards
-max_episode = 50
-fresh_time = 0.1
+max_episode = 30
+fresh_time = 0.01
 
-# Define Q-Table
+# Build the Q-Table
 def build_q_table(n_states, actions):
     table = pd.DataFrame(
             np.zeros((n_states,len(actions))),
@@ -24,7 +25,7 @@ def build_q_table(n_states, actions):
             )
     return table
 
-# q_table
+# Initial Q_Table
 """
     left    right
 0   0.0     0.0
@@ -33,9 +34,10 @@ def build_q_table(n_states, actions):
 3   0.0     0.0
 4   0.0     0.0
 5   0.0     0.0
+... 0.0     0.0
 """
 
-# Define Action
+# Choose the Action
 def choose_action(state, q_table):
     state_actions = q_table.iloc[state,:]
     if (np.random.uniform() > epsilon) or (state_actions.all() == 0):   # not greedy or not explored
@@ -44,7 +46,7 @@ def choose_action(state, q_table):
         action_name = state_actions.idxmax()
     return action_name
 
-# Define Feedback
+# Get the Environment Feedback
 def get_env_feedback(S,A):
     # rules
     if A == 'right':
@@ -79,6 +81,7 @@ def update_env(S, episode, step_counter):
 # Reinforcement Learning Algorithm
 def rl():
     q_table = build_q_table(N_states,Actions)
+    episode_log = []
     step_log = []
     for episode in range(max_episode):
         step_counter = 0
@@ -98,17 +101,17 @@ def rl():
             S = S_next
             update_env(S, episode, step_counter+1)
             step_counter +=1
-
+        episode_log.append(episode+1)
         step_log.append(step_counter) 
-    return q_table,step_log
+    return q_table, episode_log, step_log
 
-
+# Main Program
 if __name__ == "__main__":
-    q_table,step_log = rl()
+    q_table,episode_log,step_log = rl()
     print('\r\nQ-table:\n')
     print(q_table)
     plt.figure(1)
-    plt.plot(range(max_episode)+1,step_log)
+    plt.plot(episode_log, step_log,'b-*')
     plt.title('Reinforcement Learning Results')
     plt.xlabel('Episode')
     plt.ylabel('Total_Step')
