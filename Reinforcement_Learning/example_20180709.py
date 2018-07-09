@@ -6,14 +6,15 @@ from __future__ import print_function
 import numpy as np
 import pandas as pd
 import time
+import matplotlib.pyplot as plt
 
-N_states = 6    # the width of the one dimensional word
+N_states = 20    # the width of the one dimensional word
 Actions = ['left','right']  # the available actions
-epsilon = 0.9   # the greedy number
+epsilon = 0.8   # the greedy number
 alpha = 0.1 # learning rate
 gamma = 0.9 # decay of the rewards
-max_episode = 13
-fresh_time = 0.3
+max_episode = 50
+fresh_time = 0.1
 
 # Define Q-Table
 def build_q_table(n_states, actions):
@@ -78,6 +79,7 @@ def update_env(S, episode, step_counter):
 # Reinforcement Learning Algorithm
 def rl():
     q_table = build_q_table(N_states,Actions)
+    step_log = []
     for episode in range(max_episode):
         step_counter = 0
         S = 0
@@ -92,17 +94,22 @@ def rl():
             else:
                 q_target = R
                 is_terminated = True
-
             q_table.loc[S,A] += alpha*( q_target - q_predict )
             S = S_next
-
             update_env(S, episode, step_counter+1)
-
             step_counter +=1
-    return q_table
+
+        step_log.append(step_counter) 
+    return q_table,step_log
 
 
 if __name__ == "__main__":
-    q_table = rl()
+    q_table,step_log = rl()
     print('\r\nQ-table:\n')
     print(q_table)
+    plt.figure(1)
+    plt.plot(range(max_episode)+1,step_log)
+    plt.title('Reinforcement Learning Results')
+    plt.xlabel('Episode')
+    plt.ylabel('Total_Step')
+    plt.show()
