@@ -9,12 +9,12 @@ import time
 import matplotlib.pyplot as plt
 
 # Set the Initial Values
-N_states = 50    # the width of the one dimensional word
+N_states = 10    # the width of the one dimensional word
 Actions = ['left','right']  # the available actions
 epsilon = 0.8   # the greedy number
 alpha = 0.1 # learning rate
 gamma = 0.9 # decay of the rewards
-max_episode = 50
+max_episode = 10
 fresh_time = 0.001
 
 # Build the Q-Table
