@@ -66,3 +66,5 @@ b = np.array([1.0,2.0,3.0])
 print(a)
 print(b)
 print(a+b)
+
+# Indexing of ndarray
