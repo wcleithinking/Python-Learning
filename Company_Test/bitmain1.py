@@ -124,3 +124,4 @@ if __name__ == '__main__':
     plt.plot(X, Y, 'o')
     plt.plot(X, Y_Predict, 'k-')
     plt.show()
+    
