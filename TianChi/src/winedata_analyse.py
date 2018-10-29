@@ -5,7 +5,7 @@ import seaborn as sns
  
 color = sns.color_palette()
 pd.set_option('precision',4) 
-df = pd.read_csv('TianChi/winequality/winequality-red.csv',sep = ';')
+df = pd.read_csv('TianChi/wine/winequality/winequality-red.csv',sep = ';')
 print(df.head(5))
 df.info()
 
