@@ -1,3 +1,6 @@
+#！/usr/bin/python3
+# -*- coding: utf-8 -*-
+
 import numpy as np 
 import pandas as pd 
 import matplotlib.pyplot as plt
@@ -5,7 +8,7 @@ import seaborn as sns
  
 color = sns.color_palette()
 pd.set_option('precision',4) 
-df = pd.read_csv('TianChi/wine/winequality/winequality-red.csv',sep = ';')
+df = pd.read_csv('TianChi/data/wine/winequality-red.csv',sep = ';')
 print(df.head(5))
 df.info()
 
